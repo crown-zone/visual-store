@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { getApplicationConfig } from './config';
+import { TestModule } from './test/test.module';
+import { WinstonModule } from 'nest-winston-module';
 
 @Module({
     imports: [
@@ -11,6 +13,10 @@ import { getApplicationConfig } from './config';
             isGlobal: true,
             load: [getApplicationConfig],
         }),
+        WinstonModule.forRoot({
+            directory: './',
+        }),
+        TestModule,
     ],
     controllers: [AppController],
     providers: [AppService],
