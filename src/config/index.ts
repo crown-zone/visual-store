@@ -10,8 +10,9 @@ export const getApplicationEnv = (): ApplicationEnv => {
 
 export const getApplicationConfig = () => {
     const applicationEnv = getApplicationEnv();
-    const yamlPath = path.join(process.cwd(), `./resource/application.${applicationEnv}.yml`);
+    const yamlPath = path.join(process.cwd(), `./resource/application.env.yml`);
     const yamlFile = fs.readFileSync(yamlPath, 'utf8');
+    const config = parse(yamlFile);
 
-    return parse(yamlFile);
+    return config[applicationEnv];
 };
