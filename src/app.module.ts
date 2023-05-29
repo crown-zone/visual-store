@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { getApplicationConfig } from './config';
-import { TestModule } from './test/test.module';
-import { WinstonModule } from 'nest-winston-module';
+import {
+    appOptions,
+    consoleOptions,
+    controllerOptions,
+    coreOptions,
+    resolverOptions,
+    serviceOptions,
+    WinstonModule,
+} from 'nest-winston-module';
+import { SettingModule } from './setting/setting.module';
 
 @Module({
     imports: [
@@ -14,11 +21,16 @@ import { WinstonModule } from 'nest-winston-module';
             load: [getApplicationConfig],
         }),
         WinstonModule.forRoot({
+            core: coreOptions,
+            app: appOptions,
+            resolver: resolverOptions,
+            controller: controllerOptions,
+            service: serviceOptions,
+            console: consoleOptions,
             directory: './',
         }),
-        TestModule,
+        SettingModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
 })
 export class AppModule {}
