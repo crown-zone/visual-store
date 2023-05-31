@@ -12,6 +12,7 @@ import {
     WinstonModule,
 } from 'nest-winston-module';
 import { SettingModule } from './setting/setting.module';
+import { ScheduleModule } from "@nestjs/schedule";
 
 @Module({
     imports: [
@@ -29,6 +30,7 @@ import { SettingModule } from './setting/setting.module';
             console: consoleOptions,
             directory: './',
         }),
+        ScheduleModule.forRoot(),
         SettingModule,
     ],
     controllers: [AppController],

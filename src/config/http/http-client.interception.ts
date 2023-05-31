@@ -7,6 +7,10 @@ export class HttpClientInterception implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> | Promise<Observable<any>> {
         return next.handle().pipe(
             map((data) => {
+                if (data instanceof HttpClientResponse) {
+                    return data;
+                }
+
                 const response = new HttpClientResponse();
                 response.status = 200;
                 response.message = 'success';
